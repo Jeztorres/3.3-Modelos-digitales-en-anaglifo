@@ -30,6 +30,7 @@
 
 		import { AnaglyphEffect } from 'three/addons/effects/AnaglyphEffect.js';
 		import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+		import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 		import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 		let container, camera, scene, renderer, effect, controls;
@@ -81,9 +82,14 @@
 			// Cargar el modelo GLB
 			const loader = new GLTFLoader();
 
-			console.log('Intentando cargar modelo.glb...');
+			// Configurar DRACOLoader para descomprimir geometría
+			const dracoLoader = new DRACOLoader();
+			dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');
+			loader.setDRACOLoader(dracoLoader);
 
-			loader.load('models/modelo.glb', function (gltf) {
+			console.log('Intentando cargar modelo-final.glb...');
+
+			loader.load('models/modelo-final.glb', function (gltf) {
 
 				model = gltf.scene;
 
@@ -161,6 +167,10 @@
 
 			effect = new AnaglyphEffect(renderer);
 			effect.setSize(width, height);
+			
+			// Aumentar la separación entre ojos para un efecto 3D más pronunciado
+			// Valor por defecto es ~0.064, aumentamos a 0.15 para efecto más dramático
+			effect.setEyeSeparation(0.15);
 
 			//
 
