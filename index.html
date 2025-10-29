@@ -45,6 +45,7 @@
 
 			camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.01, 1000);
 			camera.position.set(0, 1.5, 4); // Posición más cercana para un modelo más pequeño
+			camera.fov = 50; // Reducir el campo de visión para efecto 3D más dramático
 
 			// Crear el reloj para las animaciones
 			clock = new THREE.Clock();
@@ -89,8 +90,8 @@
 
 			console.log('Intentando cargar modelo-final.glb...');
 
-			// GitHub Pages no soporta LFS, cargar desde GitHub Release
-			const modelUrl = 'https://github.com/Jeztorres/3.3-Modelos-digitales-en-anaglifo/releases/download/v1.0/modelo-final.glb';
+			// Usar jsDelivr CDN que sirve archivos de GitHub sin CORS
+			const modelUrl = 'https://cdn.jsdelivr.net/gh/Jeztorres/3.3-Modelos-digitales-en-anaglifo@main/models/modelo-final.glb';
 
 			loader.load(modelUrl, function (gltf) {
 
@@ -170,10 +171,6 @@
 
 			effect = new AnaglyphEffect(renderer);
 			effect.setSize(width, height);
-			
-			// Aumentar la separación entre ojos para un efecto 3D más pronunciado
-			// Valor por defecto es ~0.064, aumentamos a 0.15 para efecto más dramático
-			effect.setEyeSeparation(0.15);
 
 			//
 
