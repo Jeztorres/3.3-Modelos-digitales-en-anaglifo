@@ -90,10 +90,8 @@
 
 			console.log('Intentando cargar modelo-final.glb...');
 
-			// Usar jsDelivr CDN que sirve archivos de GitHub sin CORS
-			const modelUrl = 'https://cdn.jsdelivr.net/gh/Jeztorres/3.3-Modelos-digitales-en-anaglifo@main/models/modelo-final.glb';
-
-			loader.load(modelUrl, function (gltf) {
+			// Cargar desde la ruta local (el archivo ahora está sin LFS)
+			loader.load('models/modelo-final.glb', function (gltf) {
 
 				model = gltf.scene;
 
